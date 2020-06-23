@@ -1,0 +1,51 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "14771883",
+      "name": "苹果",
+      "font_class": "pingguo",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "14771884",
+      "name": "冰淇淋",
+      "font_class": "bingqilin",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "14771890",
+      "name": "草莓",
+      "font_class": "caomei",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "15362500",
+      "name": "arrowNext",
+      "font_class": "OOjs_UI_icon_arrowNext-ltr",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "15363078",
+      "name": "advanced",
+      "font_class": "OOjs_UI_icon_advanced",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "15363282",
+      "name": "search",
+      "font_class": "OOjs_UI_icon_search-ltr",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    }
+  ]
+}
