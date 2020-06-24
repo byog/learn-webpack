@@ -123,31 +123,35 @@ module.exports = Merge(baseWebpackConfig, {
 
     optimization: {
         splitChunks: {
-            chunks: 'all',
+            // chunks: 'all',
+            // minSize: 30000,
+            // maxSize: 0,
+            // minChunks: 1,
+            // maxAsyncRequests: 6,
+            // maxInitialRequests: 4,
             cacheGroups: {
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     chunks: 'initial',
                     name: 'vendors',
-                    priority: -10,
+                    enforce: true,
+                    priority: 20,
                 },
-                default: {
-                    minChunks: 2,
-                    // priority: -20,
-                    reuseExistingChunk: true,
-                },
-                axiosBase: {
-                    test: (module) => {
-                        return /axios/.test(module.context)
-                    },
+                common: {
                     chunks: 'initial',
-                    name: 'axiosBase',
+                    minSize: 0,
+                    name: 'common',
+                    minChunks: 2,
                     priority: 10,
+                    // reuseExistingChunk: true,
                 },
             },
         },
         // package the hash of refer another module  in current module  into a runtime file
-        // fix: a file's contenthash change when modify b file - a only refer b, nothing else, linke import()
+        // fix: a file's contenthash change when modify b file - a only refer b, nothing else, like import()
+        /**
+         * @param {string} [multiple|single]
+         */
         runtimeChunk: {
             name: (entrypoint) => `runtime-${entrypoint.name}`,
         },

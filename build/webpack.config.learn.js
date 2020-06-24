@@ -33,7 +33,7 @@ module.exports = {
     // devtool: 'eval-cheap-module-source-map',
 
     // index.html for hmr - ['./src/index.js', './src/index.html']
-    entry: './src/index.js',
+    entry: './src/main.js',
     // entry: {
     //     index: './src/index.js',
     //     temp: './src/temp.js',

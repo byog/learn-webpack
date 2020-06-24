@@ -5,12 +5,15 @@ const TerserWebpackPlugin = require('terser-webpack-plugin')
 
 module.exports = {
     context: resolve(__dirname, '../'),
-    entry: './src/index.js',
+    entry: {
+        main: './src/main.js',
+        contact: './src/contact.js',
+    },
 
     output: {
         filename: 'js/[name].[contenthash:10].js',
         publicPath: '/',
-        chunkFilename: '[name]_chunk.js',
+        chunkFilename: 'js/[name]_chunk.js',
     },
 
     module: {
@@ -67,18 +70,25 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './src/index.html',
+            filename: 'index.html',
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/contact.html',
+            filename: 'contact.html',
+            chunks: ['contact'],
         }),
     ],
 
-    optimization: {
-        minimizer: [
-            new TerserWebpackPlugin({
-                cache: true,
-                parallel: true,
-                sourceMap: true,
-            }),
-        ],
-    },
+    // optimization: {
+    //     minimizer: [
+    //         new TerserWebpackPlugin({
+    //             cache: true,
+    //             parallel: true,
+    //             sourceMap: true,
+    //         }),
+    //     ],
+    // },
 
     // rules for parsing module
     resolve: {
@@ -86,9 +96,9 @@ module.exports = {
             $css: resolve(__dirname, 'src/css'),
         },
         // ignore file extension
-        extensions: ['.css', 'scss', 'sass'],
+        extensions: ['.css', '.scss', '.sass', '.js', '.ejs', '.ts'],
         // where the module when parse, find path quickly
-        modules: [resolve(__dirname, '/node_modules')],
+        modules: [resolve(__dirname, '../node_modules')],
     },
 
     // import resource by CDN
