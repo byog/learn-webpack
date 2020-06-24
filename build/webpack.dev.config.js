@@ -12,7 +12,7 @@ module.exports = Merge(baseWebpackConfig, {
     // devtool: 'eval-cheap-module-source-map',
 
     output: {
-        path: resolve(__dirname, '../dist_dev'),
+        path: resolve(__dirname, '../dist/dev'),
     },
 
     module: {
@@ -65,7 +65,7 @@ module.exports = Merge(baseWebpackConfig, {
     },
 
     devServer: {
-        contentBase: resolve(__dirname, '../dist_dev'),
+        contentBase: resolve(__dirname, '../dist/dev'),
         // watchContentBase: true,
         watchOptions: {
             ignored: /node_modules/,
