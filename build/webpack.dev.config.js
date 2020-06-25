@@ -1,5 +1,6 @@
 const { resolve } = require('path')
 const Merge = require('webpack-merge')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const baseWebpackConfig = require('./webpack.base.config')
 
@@ -63,6 +64,15 @@ module.exports = Merge(baseWebpackConfig, {
             },
         ],
     },
+
+    plugins: [
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: [
+                '**/*',
+                resolve(__dirname, '../dist'),
+            ],
+        }),
+    ],
 
     devServer: {
         contentBase: resolve(__dirname, '../dist/dev'),
