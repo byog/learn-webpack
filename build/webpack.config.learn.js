@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 // const TerserWebpackPlugin = require('terser-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const loader = require('sass-loader')
+const StylelintPlugin = require('stylelint-webpack-plugin')
 
 // // nodejs env
 // process.env.NODE_ENV = 'development'
@@ -155,6 +155,13 @@ module.exports = {
             template: './src/contact.html',
             filename: 'contact.html',
             chunks: ['contact'],
+        }),
+        new StylelintPlugin({
+            context: './src',
+            configFile: './.stylelintrc.js',
+            files: ['**/*.{vue,htm,html,css,sss,less,scss,sass}'],
+            // lintDirtyModulesOnly: true,
+            cache: true,
         }),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[contenthash:10].css',

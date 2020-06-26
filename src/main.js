@@ -1,4 +1,4 @@
-// import './index.scss'
+import './index.scss'
 
 // document.getElementById('box1').addEventListener('click', () => {
 //     import(/* webpackChunkName: '', webpackPrefetch: true */ './js/b')
