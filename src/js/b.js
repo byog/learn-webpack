@@ -1,2 +1,2 @@
-import axios from 'axios'
-import fun from './c'
+export { axios } from 'axios'
+export { default } from './c'

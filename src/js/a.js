@@ -1,2 +1,2 @@
-import $ from 'jquery'
-import fun from './c'
+export { $ } from 'jquery'
+export { default } from './c'

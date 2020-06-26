@@ -14,4 +14,7 @@
 //     })
 // }
 
-import './js/a'
+import * as a from './js/a'
+
+a.fun()
+console.log(a.$)
