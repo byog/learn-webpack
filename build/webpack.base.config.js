@@ -1,7 +1,9 @@
 const { resolve } = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const TerserWebpackPlugin = require('terser-webpack-plugin')
+// const TerserWebpackPlugin = require('terser-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const StylelintPlugin = require('stylelint-webpack-plugin')
 
 module.exports = {
     context: resolve(__dirname, '../'),
@@ -11,63 +13,72 @@ module.exports = {
     },
 
     output: {
-        filename: 'js/[name].[contenthash:10].js',
         publicPath: '/',
-        chunkFilename: 'js/[name]_chunk.js',
+        filename: './js/[name].js',
+        chunkFilename: './js/[name]_chunk.js',
     },
 
     module: {
         rules: [
             {
-                oneOf: [
+                test: /\.html$/,
+                loader: 'html-loader',
+            },
+            // {
+            //     test: /\.css$/i,
+            //     use: ['css-loader'],
+            // },
+            // {
+            //     test: /\.s[ac]ss$/,
+            //     use: ['css-loader', 'sass-loader'],
+            // },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                enforce: 'pre',
+                use: [
                     {
-                        test: /\.html$/i,
-                        loader: 'html-loader',
-                    },
-                    {
-                        test: /\.css$/i,
-                        use: ['css-loader'],
-                    },
-                    {
-                        test: /\.s[ac]ss$/i,
-                        use: ['css-loader', 'sass-loader'],
-                    },
-                    {
-                        test: /\.js$/i,
-                        exclude: /node_modules/,
-                        use: [
-                            {
-                                loader: 'eslint-loader',
-                                options: {
-                                    // fix: true,
-                                },
-                            },
-                        ],
-                    },
-                    {
-                        test: /\.(jpg|png|gif)$/i,
-                        loader: 'url-loader',
+                        loader: 'eslint-loader',
                         options: {
-                            limit: 8 * 1024,
-                            name: '[hash:10].[ext]',
-                            outputPath: 'imgs',
-                        },
-                    },
-                    // other assets, like font
-                    {
-                        exclude: /\.(css|scss|js|html|jpg|png|gif)$/,
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: 'media',
+                            // fix: true,
                         },
                     },
                 ],
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader',
+            },
+            {
+                test: /\.(jpg|png|gif)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 8 * 1024,
+                    name: '[hash:10].[ext]',
+                    outputPath: 'imgs',
+                },
+            },
+            // other assets, like font
+            {
+                exclude: /\.(css|scss|js|html|jpg|png|gif)$/,
+                loader: 'file-loader',
+                options: {
+                    outputPath: 'media',
+                },
             },
         ],
     },
 
     plugins: [
+        new VueLoaderPlugin(),
         new CleanWebpackPlugin(),
+        new StylelintPlugin({
+            context: './src',
+            configFile: './.stylelintrc.js',
+            files: ['**/*.{vue,htm,html,css,sss,less,scss,sass}'],
+            // lintDirtyModulesOnly: true,
+            cache: true,
+        }),
         new HtmlWebpackPlugin({
             template: './src/index.html',
             filename: 'index.html',

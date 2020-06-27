@@ -1,5 +1,6 @@
 const { resolve } = require('path')
 const Merge = require('webpack-merge')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 // const webpack = require('webpack')
@@ -10,7 +11,6 @@ const baseWebpackConfig = require('./webpack.base.config')
 process.env.NODE_ENV = 'production'
 
 const commonCssLoader = [
-    // // only apply in production mode
     MiniCssExtractPlugin.loader,
     'css-loader',
     {
@@ -22,7 +22,7 @@ const commonCssLoader = [
     },
 ]
 
-module.exports = Merge(baseWebpackConfig, {
+module.exports = Merge.smart(baseWebpackConfig, {
     mode: 'production',
 
     devtool: 'eval-source-map',
@@ -30,88 +30,82 @@ module.exports = Merge(baseWebpackConfig, {
 
     output: {
         path: resolve(__dirname, '../dist'),
+        filename: './js/[name].[contenthash:10].js',
     },
 
     module: {
         rules: [
             {
-                oneOf: [
+                test: /\.css$/,
+                use: [...commonCssLoader],
+            },
+            {
+                test: /\.s[ac]ss$/,
+                use: [...commonCssLoader, 'sass-loader'],
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: [
                     {
-                        test: /\.css$/i,
-                        use: commonCssLoader,
-                    },
-                    {
-                        test: /\.s[ac]ss$/i,
-                        use: [...commonCssLoader, 'sass-loader'],
-                    },
-                    {
-                        test: /\.js$/i,
-                        exclude: /node_modules/,
-                        use: [
-                            {
-                                loader: 'babel-loader',
-                                options: {
-                                    presets: [
-                                        [
-                                            '@babel/preset-env',
-                                            {
-                                                targets: {
-                                                    edge: '17',
-                                                    firefox: '60',
-                                                    chrome: 67,
-                                                    safari: '11.1',
-                                                    ie: '9',
-                                                },
-                                                // useBuiltIns: 'usage',
-                                                // corejs: 3,
-                                            },
-                                        ],
-                                    ],
-                                    plugins: [
-                                        [
-                                            '@babel/plugin-transform-runtime',
-                                            {
-                                                corejs: 3,
-                                            },
-                                        ],
-                                    ],
-                                    cacheDirectory: true,
-                                },
-                            },
-                            {
-                                loader: 'eslint-loader',
-                                options: {
-                                    // fix: true,
-                                },
-                            },
-                        ],
-                    },
-                    {
-                        test: /\.(jpg|png|gif)$/i,
-                        loader: 'url-loader',
+                        loader: 'babel-loader',
                         options: {
-                            limit: 8 * 1024,
-                            name: '[hash:10].[ext]',
-                            outputPath: 'imgs',
+                            presets: [
+                                [
+                                    '@babel/preset-env',
+                                    {
+                                        targets: {
+                                            edge: '17',
+                                            firefox: '60',
+                                            chrome: 67,
+                                            safari: '11.1',
+                                            ie: '9',
+                                        },
+                                        // useBuiltIns: 'usage',
+                                        // corejs: 3,
+                                    },
+                                ],
+                            ],
+                            plugins: [
+                                [
+                                    '@babel/plugin-transform-runtime',
+                                    {
+                                        corejs: 3,
+                                    },
+                                ],
+                            ],
+                            cacheDirectory: true,
                         },
                     },
-                    // other assets, like font
                     {
-                        exclude: /\.(css|scss|js|html|jpg|png|gif)$/,
-                        loader: 'file-loader',
+                        loader: 'eslint-loader',
                         options: {
-                            outputPath: 'media',
+                            // fix: true,
                         },
                     },
                 ],
             },
+            // {
+            //     test: /\.(jpg|png|gif)$/,
+            //     loader: 'url-loader',
+            //     options: {
+            //         limit: 8 * 1024,
+            //         name: '[hash:10].[ext]',
+            //         outputPath: 'imgs',
+            //     },
+            // },
+            // // other assets, like font
+            // {
+            //     exclude: /\.(css|scss|js|html|jpg|png|gif)$/,
+            //     loader: 'file-loader',
+            //     options: {
+            //         outputPath: 'media',
+            //     },
+            // },
         ],
     },
 
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: 'css/[name].[contenthash:10].css',
-        }),
         new OptimizeCssAssetsPlugin(),
         // new webpack.DllReferencePlugin({
         //     manifest: resolve(__dirname, 'dll/manifest.json'),
@@ -119,6 +113,16 @@ module.exports = Merge(baseWebpackConfig, {
         // new AddAssetHtmlPlugin({
         //     filepath: resolve(__dirname, 'dll/axios.js'),
         // }),
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: [
+                '**/*',
+                resolve(__dirname, '../dist'),
+            ],
+        }),
+
+        new MiniCssExtractPlugin({
+            filename: './css/[name].[contenthash:10].css',
+        }),
     ],
 
     optimization: {

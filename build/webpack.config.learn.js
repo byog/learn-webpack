@@ -41,8 +41,8 @@ module.exports = {
     },
 
     output: {
-        filename: 'js/[name].[contenthash:10].js',
         path: resolve(__dirname, '../dist/dev'),
+        filename: 'js/[name].[contenthash:10].js',
         // all resource refer this path
         publicPath: '/',
         // name for non-entry file，like import()
@@ -57,19 +57,19 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.html$/i,
+                test: /\.html$/,
                 loader: 'html-loader',
             },
             {
-                test: /\.css$/i,
+                test: /\.css$/,
                 use: commonCssLoader,
             },
             {
-                test: /\.s[ac]ss$/i,
+                test: /\.s[ac]ss$/,
                 use: [...commonCssLoader, 'sass-loader'],
             },
             {
-                test: /\.js$/i,
+                test: /\.js$/,
                 exclude: /node_modules/,
                 use: [
                     {
@@ -114,23 +114,23 @@ module.exports = {
                 test: /\.vue$/,
                 loader: 'vue-loader',
             },
-            // {
-            //     test: /\.(jpg|png|gif)$/i,
-            //     loader: 'url-loader',
-            //     options: {
-            //         limit: 8 * 1024,
-            //         name: '[hash:10].[ext]',
-            //         outputPath: 'imgs',
-            //     },
-            // },
-            // // other assets, like font
-            // {
-            //     exclude: /\.(css|scss|js|html|jpg|png|gif)$/,
-            //     loader: 'file-loader',
-            //     options: {
-            //         outputPath: 'media',
-            //     },
-            // },
+            {
+                test: /\.(jpg|png|gif)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 8 * 1024,
+                    name: '[hash:10].[ext]',
+                    outputPath: 'imgs',
+                },
+            },
+            // other assets, like font
+            {
+                exclude: /\.(css|scss|js|html|jpg|png|gif)$/,
+                loader: 'file-loader',
+                options: {
+                    outputPath: 'media',
+                },
+            },
         ],
     },
 
@@ -164,7 +164,7 @@ module.exports = {
             cache: true,
         }),
         new MiniCssExtractPlugin({
-            filename: 'css/[name].[contenthash:10].css',
+            filename: './css/[name].[contenthash:10].css',
         }),
         // new OptimizeCssAssetsPlugin(),
         // new webpack.DllReferencePlugin({
@@ -234,7 +234,7 @@ module.exports = {
 
     devServer: {
         contentBase: resolve(__dirname, '../dist/dev'),
-        // watchContentBase: true,
+        watchContentBase: true,
         watchOptions: {
             ignored: /node_modules/,
         },
@@ -244,7 +244,7 @@ module.exports = {
         // log hide
         ClientLogLevel: 'none',
         // only show some start up info
-        quiet: true,
+        // quiet: true,
         // do not fullscreen show when error
         overlay: false,
         // proxy: {

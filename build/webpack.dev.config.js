@@ -1,12 +1,12 @@
 const { resolve } = require('path')
 const Merge = require('webpack-merge')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const baseWebpackConfig = require('./webpack.base.config')
 
 process.env.NODE_ENV = 'development'
 
-module.exports = Merge(baseWebpackConfig, {
+module.exports = Merge.smart(baseWebpackConfig, {
     mode: 'development',
 
     devtool: 'eval-source-map',
@@ -19,46 +19,57 @@ module.exports = Merge(baseWebpackConfig, {
     module: {
         rules: [
             {
-                oneOf: [
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.s[ac]ss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
                     {
-                        test: /\.css$/i,
-                        use: ['style-loader', 'css-loader'],
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: 'postcss',
+                            plugins: () => [require('postcss-preset-env')],
+                        },
                     },
+                    'sass-loader',
+                ],
+            },
+            {
+                test: /\.js$/i,
+                exclude: /node_modules/,
+                use: [
                     {
-                        test: /\.js$/i,
-                        exclude: /node_modules/,
-                        use: [
-                            {
-                                loader: 'babel-loader',
-                                options: {
-                                    presets: [
-                                        [
-                                            '@babel/preset-env',
-                                            {
-                                                targets: {
-                                                    edge: '17',
-                                                    firefox: '60',
-                                                    chrome: 67,
-                                                    safari: '11.1',
-                                                    ie: '9',
-                                                },
-                                                // useBuiltIns: 'usage',
-                                                // corejs: 3,
-                                            },
-                                        ],
-                                    ],
-                                    plugins: [
-                                        [
-                                            '@babel/plugin-transform-runtime',
-                                            {
-                                                corejs: 3,
-                                            },
-                                        ],
-                                    ],
-                                    cacheDirectory: true,
-                                },
-                            },
-                        ],
+                        loader: 'babel-loader',
+                        options: {
+                            presets: [
+                                [
+                                    '@babel/preset-env',
+                                    {
+                                        targets: {
+                                            edge: '17',
+                                            firefox: '60',
+                                            chrome: 67,
+                                            safari: '11.1',
+                                            ie: '9',
+                                        },
+                                        // useBuiltIns: 'usage',
+                                        // corejs: 3,
+                                    },
+                                ],
+                            ],
+                            plugins: [
+                                [
+                                    '@babel/plugin-transform-runtime',
+                                    {
+                                        corejs: 3,
+                                    },
+                                ],
+                            ],
+                            cacheDirectory: true,
+                        },
                     },
                 ],
             },
@@ -72,11 +83,14 @@ module.exports = Merge(baseWebpackConfig, {
                 resolve(__dirname, '../dist'),
             ],
         }),
+        new MiniCssExtractPlugin({
+            filename: './css/[name].[contenthash:10].css',
+        }),
     ],
 
     devServer: {
         contentBase: resolve(__dirname, '../dist/dev'),
-        // watchContentBase: true,
+        watchContentBase: true,
         watchOptions: {
             ignored: /node_modules/,
         },
@@ -84,9 +98,9 @@ module.exports = Merge(baseWebpackConfig, {
         port: 3000,
         hot: true,
         // log hide
-        ClientLogLevel: 'none',
+        // clientLogLevel: 'none',
         // only show some start up info
-        quiet: true,
+        // quiet: true,
         // do not fullscreen show when error
         overlay: false,
         // proxy: {

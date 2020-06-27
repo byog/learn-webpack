@@ -6,7 +6,7 @@
     "scripts": {
         "build": "webpack --config ./build/webpack.prod.config.js",
         "build:dev": "webpack --config ./build/webpack.dev.config.js",
-        "dev": "webpack-dev-server",
+        "dev": "webpack-dev-server --config ./build/webpack.dev.config.js",
         "learn": "webpack --config ./build/webpack.config.learn.js"
     },
     "author": "",
