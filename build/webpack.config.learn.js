@@ -44,7 +44,7 @@ module.exports = {
         path: resolve(__dirname, '../dist/dev'),
         filename: 'js/[name].[contenthash:10].js',
         // all resource refer this path
-        publicPath: '/',
+        publicPath: './',
         // name for non-entry file，like import()
         chunkFilename: 'js/[name]_chunk.js',
         // expose name
@@ -233,7 +233,8 @@ module.exports = {
     externals: {},
 
     devServer: {
-        contentBase: resolve(__dirname, '../dist/dev'),
+        contentBase: resolve(__dirname, '../src'),
+        publicPath: '/',
         watchContentBase: true,
         watchOptions: {
             ignored: /node_modules/,

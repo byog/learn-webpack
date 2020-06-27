@@ -25,7 +25,7 @@ module.exports = Merge.smart(baseWebpackConfig, {
             {
                 test: /\.s[ac]ss$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    'style-loader',
                     'css-loader',
                     {
                         loader: 'postcss-loader',
@@ -90,6 +90,7 @@ module.exports = Merge.smart(baseWebpackConfig, {
 
     devServer: {
         contentBase: resolve(__dirname, '../dist/dev'),
+        publicPath: '/',
         watchContentBase: true,
         watchOptions: {
             ignored: /node_modules/,

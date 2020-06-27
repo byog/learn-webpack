@@ -13,7 +13,7 @@ module.exports = {
     },
 
     output: {
-        publicPath: '/',
+        publicPath: './',
         filename: './js/[name].js',
         chunkFilename: './js/[name]_chunk.js',
     },

@@ -1,5 +1,9 @@
 import './main.scss'
 
+import SH from './js/a'
+
+SH()
+
 // document.getElementById('box1').addEventListener('click', () => {
 //     import(/* webpackChunkName: '', webpackPrefetch: true */ './js/b')
 //         .then(({ default: Cl }) => {
@@ -8,15 +12,8 @@ import './main.scss'
 //         .catch(() => console.log('b load error'))
 // })
 
-// if (module.hot) {
-//     module.hot.accept('./test.js', () => {
-//         console.log(cl())
-//     })
-// }
-
-// import * as a from './js/a'
-
-// console.log(a)
-
-// console.log(a.$)
-console.log('ffffffffs')
+if (module.hot) {
+    module.hot.accept('./js/a.js', () => {
+        console.log(SH())
+    })
+}
