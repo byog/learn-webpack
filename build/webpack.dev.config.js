@@ -1,7 +1,6 @@
 const { resolve } = require('path')
 const Merge = require('webpack-merge')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const baseWebpackConfig = require('./webpack.base.config')
 
 process.env.NODE_ENV = 'development'
@@ -83,15 +82,12 @@ module.exports = Merge.smart(baseWebpackConfig, {
                 resolve(__dirname, '../dist'),
             ],
         }),
-        new MiniCssExtractPlugin({
-            filename: './css/[name].[contenthash:10].css',
-        }),
     ],
 
     devServer: {
-        contentBase: resolve(__dirname, '../dist/dev'),
+        // contentBase: resolve(__dirname, '../src'),
         publicPath: '/',
-        watchContentBase: true,
+        // watchContentBase: true,
         watchOptions: {
             ignored: /node_modules/,
         },
@@ -103,7 +99,7 @@ module.exports = Merge.smart(baseWebpackConfig, {
         // only show some start up info
         // quiet: true,
         // do not fullscreen show when error
-        overlay: false,
+        // overlay: false,
         // proxy: {
         //     // receive /api/xxx request, proxy this request to another server
         //     '/api': {

@@ -2,15 +2,12 @@ const { resolve } = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-// const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 // const webpack = require('webpack')
 // const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 // const TerserWebpackPlugin = require('terser-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
-
-// // nodejs env
-// process.env.NODE_ENV = 'development'
 
 const commonCssLoader = [
     // // only apply in production mode
@@ -27,9 +24,11 @@ const commonCssLoader = [
     },
 ]
 
+process.env.NODE_ENV = 'production'
+
 module.exports = {
     context: resolve(__dirname, '../'),
-    mode: 'development',
+    mode: 'production',
 
     devtool: 'eval-source-map',
     // devtool: 'eval-cheap-module-source-map',
@@ -41,8 +40,8 @@ module.exports = {
     },
 
     output: {
-        path: resolve(__dirname, '../dist/dev'),
-        filename: 'js/[name].[contenthash:10].js',
+        path: resolve(__dirname, '../dist/'),
+        filename: './js/[name].[contenthash:10].js',
         // all resource refer this path
         publicPath: './',
         // name for non-entry file，like import()
@@ -142,6 +141,23 @@ module.exports = {
                 resolve(__dirname, '../dist'),
             ],
         }),
+        new StylelintPlugin({
+            context: './src',
+            configFile: './.stylelintrc.js',
+            files: ['**/*.{vue,htm,html,css,sss,less,scss,sass}'],
+            // lintDirtyModulesOnly: true,
+            cache: true,
+        }),
+        new MiniCssExtractPlugin({
+            filename: './css/[name].[contenthash:10].css',
+        }),
+        new OptimizeCssAssetsPlugin(),
+        // new webpack.DllReferencePlugin({
+        //     manifest: resolve(__dirname, 'dll/manifest.json'),
+        // }),
+        // new AddAssetHtmlPlugin({
+        //     filepath: resolve(__dirname, 'dll/axios.js'),
+        // }),
         new HtmlWebpackPlugin({
             template: './src/index.html',
             filename: 'index.html',
@@ -156,23 +172,6 @@ module.exports = {
             filename: 'contact.html',
             chunks: ['contact'],
         }),
-        new StylelintPlugin({
-            context: './src',
-            configFile: './.stylelintrc.js',
-            files: ['**/*.{vue,htm,html,css,sss,less,scss,sass}'],
-            // lintDirtyModulesOnly: true,
-            cache: true,
-        }),
-        new MiniCssExtractPlugin({
-            filename: './css/[name].[contenthash:10].css',
-        }),
-        // new OptimizeCssAssetsPlugin(),
-        // new webpack.DllReferencePlugin({
-        //     manifest: resolve(__dirname, 'dll/manifest.json'),
-        // }),
-        // new AddAssetHtmlPlugin({
-        //     filepath: resolve(__dirname, 'dll/axios.js'),
-        // }),
     ],
 
     optimization: {
@@ -231,31 +230,4 @@ module.exports = {
 
     // import resource by CDN
     externals: {},
-
-    devServer: {
-        contentBase: resolve(__dirname, '../src'),
-        publicPath: '/',
-        watchContentBase: true,
-        watchOptions: {
-            ignored: /node_modules/,
-        },
-        compress: true,
-        port: 3000,
-        hot: true,
-        // log hide
-        ClientLogLevel: 'none',
-        // only show some start up info
-        // quiet: true,
-        // do not fullscreen show when error
-        overlay: false,
-        // proxy: {
-        //     // receive /api/xxx request, proxy this request to another server
-        //     '/api': {
-        //         target: 'http://localhost:5000',
-        //         pathRewrite: {
-        //             '^api': '',
-        //         },
-        //     },
-        // },
-    },
 }

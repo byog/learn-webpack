@@ -24,14 +24,6 @@ module.exports = {
                 test: /\.html$/,
                 loader: 'html-loader',
             },
-            // {
-            //     test: /\.css$/i,
-            //     use: ['css-loader'],
-            // },
-            // {
-            //     test: /\.s[ac]ss$/,
-            //     use: ['css-loader', 'sass-loader'],
-            // },
             {
                 test: /\.js$/,
                 exclude: /node_modules/,

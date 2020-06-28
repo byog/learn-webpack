@@ -85,23 +85,6 @@ module.exports = Merge.smart(baseWebpackConfig, {
                     },
                 ],
             },
-            // {
-            //     test: /\.(jpg|png|gif)$/,
-            //     loader: 'url-loader',
-            //     options: {
-            //         limit: 8 * 1024,
-            //         name: '[hash:10].[ext]',
-            //         outputPath: 'imgs',
-            //     },
-            // },
-            // // other assets, like font
-            // {
-            //     exclude: /\.(css|scss|js|html|jpg|png|gif)$/,
-            //     loader: 'file-loader',
-            //     options: {
-            //         outputPath: 'media',
-            //     },
-            // },
         ],
     },
 
@@ -119,7 +102,6 @@ module.exports = Merge.smart(baseWebpackConfig, {
                 resolve(__dirname, '../dist'),
             ],
         }),
-
         new MiniCssExtractPlugin({
             filename: './css/[name].[contenthash:10].css',
         }),

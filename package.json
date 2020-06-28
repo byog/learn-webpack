@@ -7,7 +7,9 @@
         "build": "webpack --config ./build/webpack.prod.config.js",
         "build:dev": "webpack --config ./build/webpack.dev.config.js",
         "dev": "webpack-dev-server --config ./build/webpack.dev.config.js",
-        "learn": "webpack --config ./build/webpack.config.learn.js"
+        "dev:full": "webpack-dev-server --config ./build/webpack.dev.full.config.js",
+        "build:full": "webpack --config ./build/webpack.prod.full.config.js",
+        "build:dev-full": "webpack --config ./build/webpack.dev.full.config.js"
     },
     "author": "",
     "license": "ISC",
