@@ -2,10 +2,11 @@ const { resolve } = require('path')
 const Merge = require('webpack-merge')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const baseWebpackConfig = require('./webpack.base.config')
+const Utils = require('./utils.js')
 
 process.env.NODE_ENV = 'development'
 
-module.exports = Merge.smart(baseWebpackConfig, {
+const devConf = Merge.smart(baseWebpackConfig, {
     mode: 'development',
 
     devtool: 'eval-source-map',
@@ -111,3 +112,12 @@ module.exports = Merge.smart(baseWebpackConfig, {
         // },
     },
 })
+
+// // multiple configuration for multiple pages
+// console.log(Utils.pages.map(page => Merge(page, devConf)))
+// module.exports = Utils.pages.map(page => Merge(page, devConf))
+
+// single configuration for multiple pages
+console.log(Merge([devConf].concat(Utils.pages)))
+
+module.exports = Merge([devConf].concat(Utils.pages))

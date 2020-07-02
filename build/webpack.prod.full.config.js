@@ -8,6 +8,8 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 // const TerserWebpackPlugin = require('terser-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
+const Merge = require('webpack-merge')
+const Utils = require('./utils.js')
 
 const commonCssLoader = [
     // // only apply in production mode
@@ -26,7 +28,7 @@ const commonCssLoader = [
 
 process.env.NODE_ENV = 'production'
 
-module.exports = {
+const prodConf = {
     context: resolve(__dirname, '../'),
     mode: 'production',
 
@@ -35,8 +37,8 @@ module.exports = {
 
     // index.html for hmr - ['./src/index.js', './src/index.html']
     entry: {
-        main: './src/main.js',
-        contact: './src/contact.js',
+        // main: './src/main.js',
+        // contact: './src/contact.js',
     },
 
     output: {
@@ -124,12 +126,19 @@ module.exports = {
             },
             // other assets, like font
             {
-                exclude: /\.(css|scss|js|html|jpg|png|gif)$/,
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
                 loader: 'file-loader',
                 options: {
-                    outputPath: 'media',
+                    outputPath: 'media/font',
                 },
             },
+            // {
+            //     exclude: /\.(css|scss|js|html|jpg|png|gif)$/,
+            //     loader: 'file-loader',
+            //     options: {
+            //         outputPath: 'media',
+            //     },
+            // },
         ],
     },
 
@@ -158,20 +167,20 @@ module.exports = {
         // new AddAssetHtmlPlugin({
         //     filepath: resolve(__dirname, 'dll/axios.js'),
         // }),
-        new HtmlWebpackPlugin({
-            template: './src/index.html',
-            filename: 'index.html',
-            chunks: ['main'],
-            // minify: {
-            //     collapseWhitespace: true,
-            //     removeComments: true,
-            // },
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/contact.html',
-            filename: 'contact.html',
-            chunks: ['contact'],
-        }),
+        // new HtmlWebpackPlugin({
+        //     template: './src/index.html',
+        //     filename: 'index.html',
+        //     chunks: ['main'],
+        //     // minify: {
+        //     //     collapseWhitespace: true,
+        //     //     removeComments: true,
+        //     // },
+        // }),
+        // new HtmlWebpackPlugin({
+        //     template: './src/contact.html',
+        //     filename: 'contact.html',
+        //     chunks: ['contact'],
+        // }),
     ],
 
     optimization: {
@@ -223,7 +232,7 @@ module.exports = {
             $css: resolve(__dirname, 'src/css'),
         },
         // ignore file extension
-        extensions: ['.css', '.scss', '.sass', '.js', '.ejs', '.ts'],
+        extensions: ['.css', '.scss', '.sass', '.js', '.ejs', '.ts', '.vue'],
         // where the module when parse, find path quickly
         modules: [resolve(__dirname, '../node_modules')],
     },
@@ -231,3 +240,11 @@ module.exports = {
     // import resource by CDN
     externals: {},
 }
+
+// // multiple configuration for multiple pages
+// console.log(Utils.pages.map(page => Merge(page, prodConf)))
+// module.exports = utils.pages.map(page => Merge(page, prodConf))
+
+// single configuration for multiple pages
+console.log(Merge([prodConf].concat(Utils.pages)))
+module.exports = Merge([prodConf].concat(Utils.pages))

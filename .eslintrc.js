@@ -1,4 +1,5 @@
 module.exports = {
+    root: true,
     env: {
         browser: true,
         es2020: true,
@@ -7,7 +8,7 @@ module.exports = {
     extends: [
         // 'eslint:recommended',
         'plugin:vue/recommended',
-        'airbnb-base',
+        'airbnb',
         'prettier',
     ],
     parser: 'vue-eslint-parser',
@@ -21,5 +22,7 @@ module.exports = {
     rules: {
         semi: ['error', 'never'],
         indent: ['error', 4],
+        'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+        'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     },
 }

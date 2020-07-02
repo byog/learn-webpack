@@ -8,8 +8,8 @@ const StylelintPlugin = require('stylelint-webpack-plugin')
 module.exports = {
     context: resolve(__dirname, '../'),
     entry: {
-        main: './src/main.js',
-        contact: './src/contact.js',
+        // main: './src/main.js',
+        // contact: './src/contact.js',
     },
 
     output: {
@@ -52,12 +52,19 @@ module.exports = {
             },
             // other assets, like font
             {
-                exclude: /\.(css|scss|js|html|jpg|png|gif)$/,
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
                 loader: 'file-loader',
                 options: {
-                    outputPath: 'media',
+                    outputPath: 'media/font',
                 },
             },
+            // {
+            //     exclude: /\.(css|scss|js|html|jpg|png|gif)$/,
+            //     loader: 'file-loader',
+            //     options: {
+            //         outputPath: 'media',
+            //     },
+            // },
         ],
     },
 
@@ -68,19 +75,21 @@ module.exports = {
             context: './src',
             configFile: './.stylelintrc.js',
             files: ['**/*.{vue,htm,html,css,sss,less,scss,sass}'],
+            // files: ['src/**/*.css'],
             // lintDirtyModulesOnly: true,
             cache: true,
+            // fix: true,
         }),
-        new HtmlWebpackPlugin({
-            template: './src/index.html',
-            filename: 'index.html',
-            chunks: ['main'],
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/contact.html',
-            filename: 'contact.html',
-            chunks: ['contact'],
-        }),
+        // new HtmlWebpackPlugin({
+        //     template: './src/index.html',
+        //     filename: 'index.html',
+        //     chunks: ['main'],
+        // }),
+        // new HtmlWebpackPlugin({
+        //     template: './src/contact.html',
+        //     filename: 'contact.html',
+        //     chunks: ['contact'],
+        // }),
     ],
 
     // optimization: {
@@ -96,10 +105,12 @@ module.exports = {
     // rules for parsing module
     resolve: {
         alias: {
-            $css: resolve(__dirname, 'src/css'),
+            components: resolve(__dirname, '../src/components'),
+            assets: resolve(__dirname, '../src/assets'),
+            modules: resolve(__dirname, '../src/modules'),
         },
         // ignore file extension
-        extensions: ['.css', '.scss', '.sass', '.js', '.ejs', '.ts'],
+        extensions: ['.css', '.scss', '.sass', '.js', '.ejs', '.ts', '.vue'],
         // where the module when parse, find path quickly
         modules: [resolve(__dirname, '../node_modules')],
     },

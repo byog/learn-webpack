@@ -6,6 +6,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const TerserWebpackPlugin = require('terser-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
+const Merge = require('webpack-merge')
+const Utils = require('./utils.js')
 
 const commonCssLoader = [
     // // only apply in production mode
@@ -24,13 +26,13 @@ const commonCssLoader = [
 
 process.env.NODE_ENV = 'development'
 
-module.exports = {
+let devConf = {
     mode: 'development',
     context: resolve(__dirname, '../'),
     // index.html for hmr - ['./src/index.js', './src/index.html']
     entry: {
-        main: './src/main.js',
-        contact: './src/contact.js',
+        // main: './src/main.js',
+        // contact: './src/contact.js',
     },
 
     devtool: 'eval-source-map',
@@ -122,12 +124,19 @@ module.exports = {
             },
             // other assets, like font
             {
-                exclude: /\.(css|scss|js|html|jpg|png|gif)$/,
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
                 loader: 'file-loader',
                 options: {
-                    outputPath: 'media',
+                    outputPath: 'media/font',
                 },
             },
+            // {
+            //     exclude: /\.(css|scss|js|html|jpg|png|gif)$/,
+            //     loader: 'file-loader',
+            //     options: {
+            //         outputPath: 'media',
+            //     },
+            // },
         ],
     },
 
@@ -152,20 +161,20 @@ module.exports = {
         // new AddAssetHtmlPlugin({
         //     filepath: resolve(__dirname, 'dll/axios.js'),
         // }),
-        new HtmlWebpackPlugin({
-            template: './src/index.html',
-            filename: 'index.html',
-            chunks: ['main'],
-            // minify: {
-            //     collapseWhitespace: true,
-            //     removeComments: true,
-            // },
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/contact.html',
-            filename: 'contact.html',
-            chunks: ['contact'],
-        }),
+        // new HtmlWebpackPlugin({
+        //     template: './src/index.html',
+        //     filename: 'index.html',
+        //     chunks: ['main'],
+        //     // minify: {
+        //     //     collapseWhitespace: true,
+        //     //     removeComments: true,
+        //     // },
+        // }),
+        // new HtmlWebpackPlugin({
+        //     template: './src/contact.html',
+        //     filename: 'contact.html',
+        //     chunks: ['contact'],
+        // }),
     ],
 
     optimization: {
@@ -219,3 +228,12 @@ module.exports = {
         // },
     },
 }
+
+// // multiple configuration for multiple pages
+// console.log(Utils.pages.map(page => Merge(page, devConf)))
+// module.exports = Utils.pages.map(page => Merge(page, devConf))
+
+// single configuration for multiple pages
+console.log(Merge([devConf].concat(Utils.pages)))
+
+module.exports = Merge([devConf].concat(Utils.pages))

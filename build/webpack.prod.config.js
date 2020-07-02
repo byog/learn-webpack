@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 // const webpack = require('webpack')
 // const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
+const Utils = require('./utils.js')
 
 const baseWebpackConfig = require('./webpack.base.config')
 
@@ -22,7 +23,7 @@ const commonCssLoader = [
     },
 ]
 
-module.exports = Merge.smart(baseWebpackConfig, {
+const prodConf = Merge.smart(baseWebpackConfig, {
     mode: 'production',
 
     devtool: 'eval-source-map',
@@ -104,6 +105,7 @@ module.exports = Merge.smart(baseWebpackConfig, {
         }),
         new MiniCssExtractPlugin({
             filename: './css/[name].[contenthash:10].css',
+            // chunkFilename: './css/[name].[contenthash:10].css',
         }),
     ],
 
@@ -143,3 +145,11 @@ module.exports = Merge.smart(baseWebpackConfig, {
         },
     },
 })
+
+// // multiple configuration for multiple pages
+// console.log(Utils.pages.map(page => Merge(page, prodConf)))
+// module.exports = utils.pages.map(page => Merge(page, prodConf))
+
+// single configuration for multiple pages
+console.log(Merge([prodConf].concat(Utils.pages)))
+module.exports = Merge([prodConf].concat(Utils.pages))
