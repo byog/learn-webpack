@@ -24,7 +24,7 @@ const commonCssLoader = [
     },
 ]
 
-process.env.NODE_ENV = 'development'
+// process.env.NODE_ENV = 'development'
 
 let devConf = {
     mode: 'development',

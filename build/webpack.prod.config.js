@@ -9,7 +9,7 @@ const Utils = require('./utils.js')
 
 const baseWebpackConfig = require('./webpack.base.config')
 
-process.env.NODE_ENV = 'production'
+// process.env.NODE_ENV = 'production'
 
 const commonCssLoader = [
     MiniCssExtractPlugin.loader,
@@ -38,6 +38,7 @@ const prodConf = Merge.smart(baseWebpackConfig, {
         rules: [
             {
                 test: /\.css$/,
+                sideEffects: true,
                 use: [...commonCssLoader],
             },
             {
@@ -110,6 +111,7 @@ const prodConf = Merge.smart(baseWebpackConfig, {
     ],
 
     optimization: {
+        // sideEffects: true,
         splitChunks: {
             // chunks: 'all',
             // minSize: 30000,

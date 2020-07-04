@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const baseWebpackConfig = require('./webpack.base.config')
 const Utils = require('./utils.js')
 
-process.env.NODE_ENV = 'development'
+// process.env.NODE_ENV = 'development'
 
 const devConf = Merge.smart(baseWebpackConfig, {
     mode: 'development',

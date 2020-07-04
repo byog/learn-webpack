@@ -26,7 +26,7 @@ const commonCssLoader = [
     },
 ]
 
-process.env.NODE_ENV = 'production'
+// process.env.NODE_ENV = 'production'
 
 const prodConf = {
     context: resolve(__dirname, '../'),
@@ -63,6 +63,7 @@ const prodConf = {
             },
             {
                 test: /\.css$/,
+                sideEffects: true,
                 use: commonCssLoader,
             },
             {
