@@ -8,7 +8,6 @@ module.exports = {
     extends: [
         // 'eslint:recommended',
         'plugin:vue/recommended',
-        'airbnb',
         'prettier',
     ],
     parser: 'vue-eslint-parser',
@@ -20,8 +19,12 @@ module.exports = {
     },
     plugins: ['vue'],
     rules: {
-        semi: ['error', 'never'],
         indent: ['error', 4],
+        'linebreak-style': ['error', 'unix'],
+        quotes: ['error', 'single'],
+        // 'comma-dangle': ['error', 'always'],
+        'no-cond-assign': ['error', 'always'],
+        semi: ['error', 'never'],
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     },
