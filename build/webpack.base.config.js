@@ -108,6 +108,7 @@ module.exports = {
             components: resolve(__dirname, '../src/components'),
             assets: resolve(__dirname, '../src/assets'),
             modules: resolve(__dirname, '../src/modules'),
+            css: resolve(__dirname, '../src/css'),
         },
         // ignore file extension
         extensions: ['.css', '.scss', '.sass', '.js', '.ejs', '.ts', '.vue'],
