@@ -1,7 +1,7 @@
 {
     "name": "learn-webpack",
     "version": "1.0.0",
-    "description": "",
+    "description": "frontend practice",
     "main": "index.js",
     "scripts": {
         "build": "webpack --config ./build/webpack.prod.config.js",
@@ -11,7 +11,7 @@
         "build:full": "webpack --config ./build/webpack.prod.full.config.js",
         "build:dev-full": "webpack --config ./build/webpack.dev.full.config.js"
     },
-    "author": "",
+    "author": "Lean You",
     "license": "ISC",
     "devDependencies": {
         "@babel/cli": "^7.10.3",
@@ -20,7 +20,6 @@
         "@babel/preset-env": "^7.10.3",
         "@commitlint/cli": "^9.0.1",
         "@commitlint/config-conventional": "^9.0.1",
-        "add-asset-html-webpack-plugin": "^3.1.3",
         "babel-eslint": "^10.1.0",
         "babel-loader": "^8.1.0",
         "babel-plugin-component": "^1.1.1",
@@ -32,7 +31,6 @@
         "eslint-plugin-import": "^2.21.2",
         "eslint-plugin-jsx-a11y": "^6.3.1",
         "eslint-plugin-vue": "^6.2.2",
-        "express": "^4.17.1",
         "file-loader": "^6.0.0",
         "html-loader": "^1.1.0",
         "html-webpack-plugin": "^4.3.0",
