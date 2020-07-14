@@ -1,103 +1,104 @@
 {
-    "name": "learn-webpack",
-    "version": "1.0.0",
-    "description": "frontend practice",
-    "main": "index.js",
-    "scripts": {
-        "build": "webpack --config ./build/webpack.prod.config.js",
-        "build:dev": "webpack --config ./build/webpack.dev.config.js",
-        "dev": "webpack-dev-server --config ./build/webpack.dev.config.js",
-        "dev:full": "webpack-dev-server --config ./build/webpack.dev.full.config.js",
-        "build:full": "webpack --config ./build/webpack.prod.full.config.js",
-        "build:dev-full": "webpack --config ./build/webpack.dev.full.config.js"
-    },
-    "author": "Lean You",
-    "license": "ISC",
-    "devDependencies": {
-        "@babel/cli": "^7.10.3",
-        "@babel/core": "^7.10.3",
-        "@babel/plugin-transform-runtime": "^7.10.3",
-        "@babel/preset-env": "^7.10.3",
-        "@commitlint/cli": "^9.0.1",
-        "@commitlint/config-conventional": "^9.0.1",
-        "babel-eslint": "^10.1.0",
-        "babel-loader": "^8.1.0",
-        "babel-plugin-component": "^1.1.1",
-        "clean-webpack-plugin": "^3.0.0",
-        "css-loader": "^3.5.3",
-        "eslint": "^7.2.0",
-        "eslint-config-prettier": "^6.11.0",
-        "eslint-loader": "^4.0.2",
-        "eslint-plugin-import": "^2.21.2",
-        "eslint-plugin-jsx-a11y": "^6.3.1",
-        "eslint-plugin-vue": "^6.2.2",
-        "file-loader": "^6.0.0",
-        "html-loader": "^1.1.0",
-        "html-webpack-plugin": "^4.3.0",
-        "husky": "^4.2.5",
-        "lint-staged": "^10.2.11",
-        "mini-css-extract-plugin": "^0.9.0",
-        "node-sass": "^4.14.1",
-        "optimize-css-assets-webpack-plugin": "^5.0.3",
-        "postcss-loader": "^3.0.0",
-        "postcss-preset-env": "^6.7.0",
-        "prettier": "^2.0.5",
-        "sass-loader": "^8.0.2",
-        "style-loader": "^1.2.1",
-        "stylelint": "^13.6.1",
-        "stylelint-config-recommended": "^3.0.0",
-        "stylelint-order": "^4.1.0",
-        "stylelint-webpack-plugin": "^2.1.0",
-        "terser-webpack-plugin": "^3.0.6",
-        "url-loader": "^4.1.0",
-        "vue-eslint-parser": "^7.1.0",
-        "vue-loader": "^15.9.3",
-        "vue-style-loader": "^4.1.2",
-        "vue-template-compiler": "^2.6.11",
-        "webpack": "^4.43.0",
-        "webpack-cli": "^3.3.12",
-        "webpack-dev-server": "^3.11.0",
-        "webpack-merge": "^4.2.2"
-    },
-    "dependencies": {
-        "@babel/runtime": "^7.10.3",
-        "@babel/runtime-corejs3": "^7.10.3",
-        "axios": "^0.19.2",
-        "core-js": "^3.6.5",
-        "element-ui": "^2.13.2",
-        "jquery": "^3.5.1",
-        "vue": "^2.6.11"
-    },
-    "browserslist": {
-        "production": [
-            "> 0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
-    "husky": {
-        "hooks": {
-            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-            "pre-commit": "lint-staged"
-        }
-    },
-    "lint-staged": {
-        "*.{js,json}": [
-            "prettier --write",
-            "eslint"
-        ],
-        "*.ts?(x)": [
-            "prettier --parser=typescript --write"
-        ],
-        "*.{css}": [
-            "prettier --write",
-            "stylelint"
-        ]
-    },
-    "sideEffects": false
+	"name": "learn-webpack",
+	"version": "1.0.0",
+	"description": "frontend practice",
+	"main": "index.js",
+	"scripts": {
+		"build": "webpack --config ./build/webpack.prod.config.js",
+		"build:dev": "webpack --config ./build/webpack.dev.config.js",
+		"dev": "webpack-dev-server --config ./build/webpack.dev.config.js",
+		"dev:full": "webpack-dev-server --config ./build/webpack.dev.full.config.js",
+		"build:full": "webpack --config ./build/webpack.prod.full.config.js",
+		"build:dev-full": "webpack --config ./build/webpack.dev.full.config.js"
+	},
+	"author": "Lean You",
+	"license": "ISC",
+	"devDependencies": {
+		"@babel/cli": "^7.10.3",
+		"@babel/core": "^7.10.3",
+		"@babel/plugin-transform-runtime": "^7.10.3",
+		"@babel/preset-env": "^7.10.3",
+		"@commitlint/cli": "^9.0.1",
+		"@commitlint/config-conventional": "^9.0.1",
+		"babel-eslint": "^10.1.0",
+		"babel-loader": "^8.1.0",
+		"babel-plugin-component": "^1.1.1",
+		"clean-webpack-plugin": "^3.0.0",
+		"css-loader": "^3.5.3",
+		"eslint": "^7.2.0",
+		"eslint-config-prettier": "^6.11.0",
+		"eslint-loader": "^4.0.2",
+		"eslint-plugin-import": "^2.21.2",
+		"eslint-plugin-jsx-a11y": "^6.3.1",
+		"eslint-plugin-vue": "^6.2.2",
+		"file-loader": "^6.0.0",
+		"html-loader": "^1.1.0",
+		"html-webpack-plugin": "^4.3.0",
+		"husky": "^4.2.5",
+		"lint-staged": "^10.2.11",
+		"mini-css-extract-plugin": "^0.9.0",
+		"node-sass": "^4.14.1",
+		"optimize-css-assets-webpack-plugin": "^5.0.3",
+		"postcss-loader": "^3.0.0",
+		"postcss-preset-env": "^6.7.0",
+		"prettier": "^2.0.5",
+		"sass-loader": "^8.0.2",
+		"style-loader": "^1.2.1",
+		"stylelint": "^13.6.1",
+		"stylelint-config-recommended": "^3.0.0",
+		"stylelint-order": "^4.1.0",
+		"stylelint-webpack-plugin": "^2.1.0",
+		"terser-webpack-plugin": "^3.0.6",
+		"url-loader": "^4.1.0",
+		"vue-eslint-parser": "^7.1.0",
+		"vue-loader": "^15.9.3",
+		"vue-style-loader": "^4.1.2",
+		"vue-template-compiler": "^2.6.11",
+		"webpack": "^4.43.0",
+		"webpack-cli": "^3.3.12",
+		"webpack-dev-server": "^3.11.0",
+		"webpack-merge": "^4.2.2"
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.10.3",
+		"@babel/runtime-corejs3": "^7.10.3",
+		"axios": "^0.19.2",
+		"core-js": "^3.6.5",
+		"element-ui": "^2.13.2",
+		"jquery": "^3.5.1",
+		"vue": "^2.6.11",
+		"vue-router": "^3.3.4"
+	},
+	"browserslist": {
+		"production": [
+			"> 0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"husky": {
+		"hooks": {
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.{js,json}": [
+			"prettier --write",
+			"eslint"
+		],
+		"*.ts?(x)": [
+			"prettier --parser=typescript --write"
+		],
+		"*.{css}": [
+			"prettier --write",
+			"stylelint"
+		]
+	},
+	"sideEffects": false
 }
