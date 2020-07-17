@@ -5,11 +5,13 @@
 			<router-link to="/foo">go to foo</router-link>
 			<router-link to="/bar">go to bar</router-link>
 			<router-link to="/user">go to user</router-link>
+			<router-link to="/vuextest">go to vuextest</router-link>
 			<router-link to="/namedview">named view</router-link>
 		</p>
 		<router-view />
 		<router-view name="a" />
 		<router-view name="b" />
+		<router-view name="vuexView" :finalCount="finalCount" />
 	</div>
 </template>
 
@@ -26,6 +28,12 @@ const Bar = { template: '<div>bar</div>' }
 const UserHome = { template: '<div>Home</div>' }
 const UserProfile = { template: '<div>Profile</div>' }
 const UserPosts = { template: '<div>Posts</div>' }
+const VuexTest = {
+	template: '<div>VuexTest: {{ finalCount }}</div>',
+	props: {
+		finalCount: Number,
+	},
+}
 const User = {
 	props: ['id'],
 	template: `
@@ -40,6 +48,10 @@ const routes = [
 	{ path: '/foo', component: Foo },
 	{ path: '/bar', component: Bar },
 	{ path: '/user', component: UserHome },
+	{
+		path: '/vuextest',
+		components: { vuexView: VuexTest },
+	},
 	{
 		path: '/user/:id',
 		component: User,
@@ -81,6 +93,9 @@ export default {
 	computed: {
 		username() {
 			return this.$route.params.username
+		},
+		finalCount() {
+			return this.$store.state.count * 100
 		},
 	},
 	methods: {
