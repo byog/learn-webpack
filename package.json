@@ -9,7 +9,8 @@
 		"dev": "webpack-dev-server --config ./build/webpack.dev.config.js",
 		"dev:full": "webpack-dev-server --config ./build/webpack.dev.full.config.js",
 		"build:full": "webpack --config ./build/webpack.prod.full.config.js",
-		"build:dev-full": "webpack --config ./build/webpack.dev.full.config.js"
+		"build:dev-full": "webpack --config ./build/webpack.dev.full.config.js",
+		"test": "jest"
 	},
 	"author": "Lean You",
 	"license": "ISC",
@@ -35,6 +36,7 @@
 		"html-loader": "^1.1.0",
 		"html-webpack-plugin": "^4.3.0",
 		"husky": "^4.2.5",
+		"jest": "^26.1.0",
 		"lint-staged": "^10.2.11",
 		"mini-css-extract-plugin": "^0.9.0",
 		"node-sass": "^4.14.1",

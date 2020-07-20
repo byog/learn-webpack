@@ -29,7 +29,7 @@ const commonCssLoader = [
 let devConf = {
 	mode: 'development',
 	context: resolve(__dirname, '../'),
-	// index.html for hmr - ['./src/index.js', './src/index.html']
+	// index.html for hmr - ['./src/index.js', './src/public/index.html']
 	entry: {
 		// main: './src/main.js',
 		// contact: './src/contact.js',
@@ -138,7 +138,7 @@ let devConf = {
 		//     filepath: resolve(__dirname, 'dll/axios.js'),
 		// }),
 		// new HtmlWebpackPlugin({
-		//     template: './src/index.html',
+		//     template: './src/public/index.html',
 		//     filename: 'index.html',
 		//     chunks: ['main'],
 		//     // minify: {

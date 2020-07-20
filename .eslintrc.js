@@ -38,7 +38,7 @@ module.exports = {
 	rules: {
 		indent: ['error', 'tab'],
 		'linebreak-style': ['error', 'unix'],
-		quotes: ['error', 'single'],
+		quotes: ['warn', 'single'],
 		// 'comma-dangle': ['error', 'always'],
 		'no-cond-assign': ['error', 'always'],
 		semi: ['error', 'never'],

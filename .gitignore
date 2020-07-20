@@ -16,6 +16,9 @@ npm-debug.log*
 # Dependency directories
 node_modules/
 
+# Jest
+coverage
+
 # TypeScript v1 declaration files
 typings/
 
